@@ -31,4 +31,6 @@ jobs:
           uv pip install --python "$RUNNER_TEMP/smoke/bin/python" "$RUNNER_TEMP"/dist/langchain_briq-*.whl
           cd "$(mktemp -d)"
           "$RUNNER_TEMP/smoke/bin/python" -c "import langchain_briq; from langchain_briq import BriqSandbox; print(langchain_briq.__version__)"
-      - run: uv publish --trusted-publishing always "$RUNNER_TEMP"/dist/*
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ${{ runner.temp }}/dist
